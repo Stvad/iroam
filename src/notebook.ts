@@ -23,11 +23,7 @@ const cellRunner = new CellRunner()
 export const runActiveBlockAndWriteToNext = async () => {
     const activeUid = getActiveBlockUid()
     const code = getActiveCodeBlockContent()
-    const out = await cellRunner.run(code, activeUid, (out: string) => {
-        console.log("trying to write a child of ", activeUid, out)
-        return writeToNestedBlock(activeUid, out)
-    })
-    // await writeToNestedBlock(activeUid, out)
+    await cellRunner.run(code, activeUid, (out: string) => writeToNestedBlock(activeUid, out))
 }
 
 /**

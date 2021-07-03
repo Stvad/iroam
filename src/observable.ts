@@ -14,7 +14,6 @@ function createRoot(parent: Element) {
     root.className = observableNodeClass
 
     parent.appendChild(root)
-    // parent.insertBefore(root, parent.children[1])
     return root
 }
 
@@ -26,24 +25,18 @@ export class CellRunner {
     readonly varsForCells = new Map<string, any>()
     readonly observers = new Map<string, any>()
 
+    private interpreter = new Interpreter({module: this.mainModule})
+
     constructor() {
     }
 
     async run(code: string, id: string, writeResult: (out: string) => Promise<void>) {
         this.clearVars(id)
-        // const parent = document.querySelector(".roam-article > div:first-of-type")
-        // root = root || createRoot(parent)
 
-        // root = root || createRoot(parent)
-
-        this.observers.set(id, this.observers.get(id) || this.getObserver(id, writeResult))
+        this.observers.set(id, this.observers.get(id) || this.createObserver(id, writeResult))
         const observer = this.observers.get(id)
-        //todo save observer?
-        const interpret = new Interpreter({module: this.mainModule, observer})
 
-        this.varsForCells.set(id, await interpret.module(code))
-        // return await interpret.cell(code)
-
+        this.varsForCells.set(id, await this.interpreter.module(code, null, observer))
     }
 
     private clearVars(id: string) {
@@ -53,15 +46,16 @@ export class CellRunner {
         this.varsForCells.get(id)?.forEach(vars => {
             for (const v of vars) {
                 v.delete()
-                if (v._observer._node) {
-                    v._observer._node.remove()
-                }
+
+                // todo this is to remove "undefined" nodes
+                // refers to observer created below - should define a proper type
+                // also reaches into internals of Inspector which is unfortunate
+                v._observer?.delegate?._node?.remove()
             }
         })
-        //this seems to break the interactive viewof html element though 🤔
     }
 
-    getObserver(id: string, writeResult: (out: string) => Promise<void>) {
+    createObserver(id: string, writeResult: (out: string) => Promise<void>) {
         const parent = document.activeElement
             .parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
         //todo search up for parent instead
@@ -73,6 +67,7 @@ export class CellRunner {
             console.log("creating observer for", genInp)
             const delegate = delegateGenerator()
             return ({
+                delegate,
                 pending() {
                     console.log("pending")
                     delegate.pending()
@@ -85,7 +80,6 @@ export class CellRunner {
                     console.log(value, name)
                     delegate.fulfilled(value, name)
 
-                    //todo run html -> hiccup when relevant
                     writeResult(JSON.stringify(value))
                 },
             })

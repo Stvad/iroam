@@ -81,7 +81,7 @@ export const getAllCodeBlocksNestedUnder = async (topUid) => {
   return processCodeBlocks(results, topUid);
 };
 
-export async function createNextPythonBlock(activeUid: string) {
+export async function createNextCodeBlock(activeUid: string, language: string = "javascript") {
   // todo generate hiccup for displaying complex things?
   // todo interactive output
   // todo proper click on the new code block
@@ -89,7 +89,7 @@ export async function createNextPythonBlock(activeUid: string) {
   const order = getOrderByBlockUid(activeUid) + 1
   const newUuid = createBlock({
     node: {
-      text: "```python\n```",
+      text: "```" + language + "\n```",
     },
     parentUid: getParentUidByBlockUid(activeUid),
     order,
