@@ -1,7 +1,7 @@
 const {Interpreter} = require("@alex.garcia/unofficial-observablehq-compiler")
 import {Inspector, Runtime} from "@observablehq/runtime"
 
-const observableNodeClass = "execroot"
+const observableNodeClass = "iroam-exec-result"
 
 function createRoot(parent: Element) {
     const prevRoot = parent.querySelector(`.${observableNodeClass}`)
@@ -26,9 +26,6 @@ export class CellRunner {
     readonly observers = new Map<string, any>()
 
     private interpreter = new Interpreter({module: this.mainModule})
-
-    constructor() {
-    }
 
     async run(code: string, id: string, writeResult: (out: string) => Promise<void>) {
         this.clearVars(id)

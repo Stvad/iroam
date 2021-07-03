@@ -1,0 +1,36 @@
+/*
+todo: better name for root
+todo: figure out a good way to apply this
+*/
+.iroam-exec-result {
+    flex-basis: 100%;
+    margin-left: 3em;
+    padding: 1em;
+    margin-top: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    border-radius: 6px;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.iroam-exec-result > p {
+    margin: 0; /*questionable*/
+}
+
+.rm-block-main {
+    flex-wrap: wrap;
+}
+
+.rm-block-main > div {
+/*    all parts of the block*/
+}
+
+/*these are mostly trying to make the result go to new line without breaking the block layout*/
+.roam-block {
+    flex-basis:93%;
+}
+
+.rm-autocomplete__wrapper {
+    flex-basis:93% !important;
+}
