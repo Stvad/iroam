@@ -1,14 +1,14 @@
 {
-  "name": "pyroam",
+  "name": "iroam",
   "version": "0.0.0",
-  "description": "Python notebooks in Roam",
+  "description": "Interactive computing in Roam",
   "main": "src/index.ts",
-  "repository": "https://github.com/aidam38/pyroam.git",
-  "author": "Adam Krivka <krivka.adam@gmail.com>",
+  "repository": "https://github.com/Stvad/iroam.git",
+  "author": "Vlad Sitalo",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel src/index.ts -o build/pyroam.js",
-    "build": "parcel build src/index.ts -o build/pyroam.js",
+    "dev": "parcel src/index.ts -o build/iroam.js",
+    "build": "parcel build src/index.ts -o build/iroam.js",
     "test": "jest --coverage"
   },
   "dependencies": {

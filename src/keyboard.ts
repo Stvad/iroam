@@ -12,7 +12,7 @@ export const handleKeyPress = async (e: KeyboardEvent) => {
   } else if (e.code === "Enter" && e.altKey === true && e.shiftKey === true) {
     runActiveNotebook();
   } else if (e.key === "-" && e.ctrlKey === true && e.metaKey === true)  {
-    console.log("pyroam: Removing key listener")
+    console.log("iroam: Removing key listener")
     document.removeEventListener("keydown", handleKeyPress)
   }
 };
