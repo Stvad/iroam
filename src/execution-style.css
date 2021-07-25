@@ -1,5 +1,4 @@
 /*
-todo: better name for root
 todo: figure out a good way to apply this
 */
 .iroam-exec-result {
@@ -23,14 +22,13 @@ todo: figure out a good way to apply this
 }
 
 .rm-block-main > div {
-/*    all parts of the block*/
 }
 
 /*these are mostly trying to make the result go to new line without breaking the block layout*/
 .roam-block {
-    flex-basis:93%;
+    flex-basis:88%;
 }
 
 .rm-autocomplete__wrapper {
-    flex-basis:93% !important;
+    flex-basis:88% !important;
 }
