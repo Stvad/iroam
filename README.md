@@ -26,7 +26,8 @@ var iroam = document.createElement('script');
     iroam.id = iroamID;
 	iroam.src =  "https://i.roam.garden/iroam.js";
     iroam.async = true;
-document.getElementsByTagName('head')[0].appendChild(iroam);```
+document.getElementsByTagName('head')[0].appendChild(iroam);
+```
 
 ## Contributing
 
