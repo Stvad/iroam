@@ -54,8 +54,8 @@ export const getUidOfClosestBlockReferencing = async (uid: string, page: string)
   //@ts-ignore
   const results = await q(`[:find 
   (pull ?notebookBlock [:block/uid]) 
-  :where  [?notebookBlock :block/refs ?pyroamNotebook]
-          [?pyroamNotebook :node/title "${page}"]
+  :where  [?notebookBlock :block/refs ?iroamNotebook]
+          [?iroamNotebook :node/title "${page}"]
           [?activeBlock :block/parents ?notebookBlock]
           [?activeBlock :block/uid "${uid}"]]`);
   //@ts-ignore

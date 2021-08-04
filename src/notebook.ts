@@ -31,7 +31,7 @@ export const runActiveBlockAndWriteToNext = async () => {
  */
 export const runActiveNotebook = async () => {
     const uid = getActiveBlockUid()
-    const notebookUid = await getUidOfClosestBlockReferencing(uid, "pyroam/notebook")
+    const notebookUid = await getUidOfClosestBlockReferencing(uid, "iroam/notebook")
     console.log("Notebook Block uid:" + notebookUid)
     runAllBlocksBelowUidAndWrite(notebookUid)
 }
