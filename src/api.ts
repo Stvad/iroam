@@ -71,13 +71,13 @@ export const getUidOfClosestBlockReferencing = async (uid: string, page: string)
   }
 };
 
-export const getAllCodeBlocksNestedUnder = async (topUid) => {
-  const results = await window.roamAlphaAPI.q('[:find\
-    (pull ?cell [:block/string :block/order :block/uid {:block/_children ...}])\
-    :where  [?notebookBlock :block/uid "' + topUid + '"]\
-            [?cell :block/parents ?notebookBlock]\
-            [?cell :block/string ?string]\
-            [(clojure.string/starts-with? ?string "```python")]]')
+export const getAllCodeBlocksNestedUnder = async (topUid, language: string = "javascript") => {
+  const results = window.roamAlphaAPI.q(`[:find
+    (pull ?cell [:block/string :block/order :block/uid {:block/_children ...}])
+    :where  [?notebookBlock :block/uid "${topUid}"]
+            [?cell :block/parents ?notebookBlock]
+            [?cell :block/string ?string]
+            [(clojure.string/starts-with? ?string "\`\`\`${language}")]]`)
   return processCodeBlocks(results, topUid);
 };
 
@@ -95,5 +95,5 @@ export async function createNextCodeBlock(activeUid: string, language: string = 
     order,
   })
 
-  console.log("Created new python block:", newUuid)
+  console.log("Created new code block:", newUuid)
 }

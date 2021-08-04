@@ -31,9 +31,9 @@ export const getActiveBlockUid = () => {
   return roamInput.id.slice(-9)
 }
 
-export const removeBackticks = (str: string) => {
+export const removeBackticks = (str: string, language: string = "javascript") => {
   var ttt = "``" + "`";
-  return str.replace(ttt + "python", "").replace(ttt, "");
+  return str.replace(ttt + language, "").replace(ttt, "");
 }
 
 /* ======== CODEBLOCK PROCESSING ======= */
@@ -100,17 +100,18 @@ const flatten = (tree) => {
   return finalArray;
 }
 
-export const processCodeBlocks = (codeblocks, uid) => {
+export const processCodeBlocks = (codeblocks, uid, language: string = "javascript") => {
   var trees = codeblocks.map(codeblock => invertTree(codeblock[0], uid));
   var tree = mergeTreesByUid(trees);
-  console.log(tree)
+  console.log("tree", tree)
   var cells = flatten(tree.filter(tr => tr)[0]);
-  cells = cells.filter(cell => cell.string && cell.string.startsWith("```python"))
+  cells = cells.filter(cell => cell.string && cell.string.startsWith("```" + language))
     .map(cell => {
       return {
         uid: cell.uid,
         string: removeBackticks(cell.string)
       }
     })
+  console.log(`Found ${cells.length} cells in the notebook`)
   return cells;
 }

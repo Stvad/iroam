@@ -1,5 +1,6 @@
 const {Interpreter} = require("@alex.garcia/unofficial-observablehq-compiler")
 import {Inspector, Runtime} from "@observablehq/runtime"
+import {getHtmlElementFromUid} from "roam-client/lib/dom"
 
 const observableNodeClass = "iroam-exec-result"
 
@@ -15,6 +16,11 @@ function createRoot(parent: Element) {
 
     parent.appendChild(root)
     return root
+}
+
+function getBlockContainer(id: string) {
+    // todo handle invisible blocks (e.g. collapsed)
+    return getHtmlElementFromUid(id)?.closest(".rm-block-main")
 }
 
 export class CellRunner {
@@ -53,12 +59,7 @@ export class CellRunner {
     }
 
     createObserver(id: string, writeResult: (out: string) => Promise<void>) {
-        const parent = document.activeElement
-            .parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
-        //todo search up for parent instead
-        // const parent = document.activeElement.parentElement
-
-        const displayElement = createRoot(parent)
+        const displayElement = createRoot(getBlockContainer(id))
         const delegateGenerator = Inspector.into(displayElement)
         return (genInp) => {
             console.log("creating observer for", genInp)
