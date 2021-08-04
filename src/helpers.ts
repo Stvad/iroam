@@ -1,5 +1,8 @@
 /* ====== BASIC ======= */
 
+import {getUidOfClosestBlockReferencing} from "./api"
+import {Settings} from "./settings"
+
 export const sleep = (m) => {
   var t = m ? m : 10;
   return new Promise((r) => setTimeout(r, t));
@@ -30,6 +33,8 @@ export const getActiveBlockUid = () => {
   const roamInput = getActiveRoamInputElement()
   return roamInput.id.slice(-9)
 }
+
+export const getActiveNotebookId = () => getUidOfClosestBlockReferencing(getActiveBlockUid(), Settings.notebookMaker)
 
 export const removeBackticks = (str: string, language: string = "javascript") => {
   var ttt = "``" + "`";

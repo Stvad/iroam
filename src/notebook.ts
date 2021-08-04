@@ -1,11 +1,8 @@
-import {getActiveBlockUid, getActiveCodeBlockContent as getActiveCodeBlockContent} from "./helpers"
-import {getAllCodeBlocksNestedUnder, getUidOfClosestBlockReferencing, writeToNestedBlock} from "./api"
+import {getActiveBlockUid, getActiveCodeBlockContent as getActiveCodeBlockContent, getActiveNotebookId} from "./helpers"
+import {getAllCodeBlocksNestedUnder, writeToNestedBlock} from "./api"
 import {CellRunner} from "./observable"
-import {Settings} from "./settings"
-
 
 class CellRunnerManager {
-    default = new CellRunner()
     readonly cellRunners = new Map<string, CellRunner>()
 
     get(id: string) {
@@ -20,6 +17,8 @@ class CellRunnerManager {
 const runnerManager = new CellRunnerManager()
 
 const runAllBlocksBelowUidAndWrite = async (notebookUid) => {
+    console.log("Running notebook with uid:" + notebookUid)
+
     const cells = await getAllCodeBlocksNestedUnder(notebookUid)
     const activeUid = getActiveBlockUid()
 
@@ -35,25 +34,21 @@ const runAllBlocksBelowUidAndWrite = async (notebookUid) => {
     }
 }
 
-const cellRunner = new CellRunner()
 /**
  * Runs only the active cell
  */
 export const runActiveBlockAndWriteToNext = async () => {
     const activeUid = getActiveBlockUid()
+    const notebookId = await getActiveNotebookId()
+    console.log(`Running cell ${activeUid} from ${notebookId} notebook`)
     const code = getActiveCodeBlockContent()
-    await cellRunner.run(
+
+    await runnerManager.get(notebookId).run(
         code,
         activeUid,
         (out: string) => writeToNestedBlock(activeUid, out))
 }
 
-/**
- * Runs the whole notebook
- */
 export const runActiveNotebook = async () => {
-    const uid = getActiveBlockUid()
-    const notebookUid = await getUidOfClosestBlockReferencing(uid, Settings.notebookMaker)
-    console.log("Notebook Block uid:" + notebookUid)
-    runAllBlocksBelowUidAndWrite(notebookUid)
+    return runAllBlocksBelowUidAndWrite(await getActiveNotebookId())
 }
