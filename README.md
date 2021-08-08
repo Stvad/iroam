@@ -9,9 +9,9 @@ Use one of the shortcuts below to execute it.
 
 ### Shortcuts
 
-- `<Alt+Enter>`	Run current cell
-- `<Cmd+Enter>`	Run current cell and create a new one below 
-- `<Alt+Shift+Enter>`	Run all cells in active notebook and write
+- `<Cmd+Enter>`	Run current cell
+- `<Alt+Enter>`	Run current cell and create a new one below 
+- `<Cmd+Shift+Enter>` Run all cells in the active notebook
 
 ### Notebooks
 
