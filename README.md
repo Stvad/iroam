@@ -58,6 +58,7 @@ document.getElementsByTagName('head')[0].appendChild(iroam);
 
 ## Known issues
 - Execution of the whole notebook would fail if some of the code blocks are in collapsed state
+- Currently, relies on a custom version of https://github.com/Stvad/roam-client to provide better Roam data interfaces/reactivity
 
 ## Contributing
 
