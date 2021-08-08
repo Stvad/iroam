@@ -15,9 +15,9 @@ Use one of the shortcuts below to execute it.
 
 ### Notebooks
 
-By default, the current page considered to be an "active notebook", i.e., when you press `<Alt+Shift+Enter>`, all blocks on the current page get executed.
+By default, the current page considered to be an "active notebook", i.e., when you press `<Cmd+Shift+Enter>`, all blocks on the current page get executed.
 
-You can designate a smaller portion of the page to be the active notebook by referencing the page [[iroam/notebook]] in the parent block, i.e. all blocks nested under this blocks will get run when pressing <Alt+Shift+Enter>, but no other. 
+You can designate a smaller portion of the page to be the active notebook by referencing the page [[iroam/notebook]] in the parent block, i.e. all blocks nested under this blocks will get run when pressing `<Cmd+Shift+Enter>`, but no other. 
 
 Each notebook lives in an isolated Observable environment (Observable runtime module)
 
