@@ -1,6 +1,8 @@
 const {Interpreter} = require("@alex.garcia/unofficial-observablehq-compiler")
 import {Inspector, Runtime} from "@observablehq/runtime"
+import {Library} from "@observablehq/stdlib"
 import {getHtmlElementFromUid} from "roam-client/lib/dom"
+import {Block, watchTree} from "roam-client"
 
 const observableNodeClass = "iroam-exec-result"
 
@@ -23,6 +25,8 @@ function getBlockContainer(id: string) {
     return getHtmlElementFromUid(id)?.closest(".rm-block-main")
 }
 
+const stringify = (value: any) => JSON.stringify(value, null, 2)
+
 export class CellRunner {
     readonly runtime = new Runtime()
     readonly mainModule = this.runtime.module()
@@ -39,6 +43,8 @@ export class CellRunner {
         this.observers.set(id, this.observers.get(id) || this.createObserver(id, writeResult))
         const observer = this.observers.get(id)
 
+        //todo catch and process syntax errors (may be worth doing parsing separately?)
+        // only do clearing of stuff if there are no syntax errors
         this.varsForCells.set(id, await this.interpreter.module(code, null, observer))
     }
 
@@ -75,12 +81,26 @@ export class CellRunner {
                     delegate.rejected(e)
                 },
                 fulfilled(value: any, name: any) {
-                    console.log(value, name)
-                    delegate.fulfilled(value, name)
+                    console.log("fulfilled", value, name)
 
-                    writeResult(JSON.stringify(value))
+                    try {
+                        delegate.fulfilled(value, name)
+                    } catch (e) {
+                        delegate.fulfilled(stringify(value), name)
+                    }
+                    writeResult(stringify(value))
                 },
             })
         }
     }
 }
+
+
+export const observe = blockId =>
+    new Library().Generators.observe(next => {
+
+        // Yield the input’s initial value.
+        next(Block.fromUid(blockId))
+
+        return watchTree(blockId, (before, after) => next(after))
+    })
