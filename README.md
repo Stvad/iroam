@@ -31,7 +31,7 @@ You can import dependencies/shared code from:
 
 ## Installation
 
-[Install Roam plugin](https://roamstack.com/how-install-roam-plugin/) via the following code-block
+1. [Install Roam plugin](https://roamstack.com/how-install-roam-plugin/) via the following code-block
 
 ```javascript
 /** iroam - Interactive computation in Roam
@@ -55,6 +55,8 @@ var iroam = document.createElement('script');
     iroam.async = true;
 document.getElementsByTagName('head')[0].appendChild(iroam);
 ```
+
+2. Add a **CSS block** with the content of [this file](./src/execution-style.css) to make the result blocks look nicer.
 
 ## Known issues
 - Execution of the whole notebook would fail if some of the code blocks are in collapsed state
