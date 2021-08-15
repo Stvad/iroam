@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "parcel src/index.ts -o build/iroam.js",
     "build": "parcel build src/index.ts -o build/iroam.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "upload": "netlify deploy -d dist -s i.roam.garden --prod"
   },
   "dependencies": {
     "@alex.garcia/unofficial-observablehq-compiler": "^0.6.0-alpha.9",
