@@ -7,6 +7,8 @@ Based on [Observable](https://observablehq.com/) runtime
 Create a `javascript` code block in Roam and write [Observable style JS code](https://observablehq.com/@observablehq/observables-not-javascript) in it.  
 Use one of the shortcuts below to execute it. 
 
+![basic interaction](./media/iroam%20basics.gif)
+
 ### Shortcuts
 
 - `<Cmd+Enter>`	Run current cell
