@@ -1,5 +1,10 @@
 # iRoam - interactive computation in Roam
 
+---
+The development is supported by <a href="https://roam.garden/"> <img src="https://roam.garden/static/logo-2740b191a74245dc48ee30c68d5192aa.svg" height="50" /></a> - a service that allows you to publish your Roam notes as a beautiful static website (digital garden)
+
+---
+
 Based on [Observable](https://observablehq.com/) runtime
 
 ## Usage
