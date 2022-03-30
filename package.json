@@ -15,6 +15,7 @@
   "dependencies": {
     "@alex.garcia/unofficial-observablehq-compiler": "^0.6.0-alpha.9",
     "@observablehq/runtime": "^4.12.0",
+    "htl": "^0.3.1",
     "roam-client": "^1.76.3"
   },
   "devDependencies": {
